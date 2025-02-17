@@ -3,11 +3,11 @@ import mongoose, { Schema } from "mongoose";
 const commentSchema = new Schema(
   {
     content: { type: String, required: true },
-    blog: { type: mongoose.SchemaType.ObjectId, ref: "blogs" },
-    author: { type: mongoose.SchemaType.ObjectId, ref: "users" },
+    blog: { type: mongoose.SchemaTypes.ObjectId, ref: "Blog" },
+    author: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
 
-const Comment = mongoose.model("Comment", userSchema, "comments");
+const Comment = mongoose.model("Comment", commentSchema, "comments");
 export default Comment;
