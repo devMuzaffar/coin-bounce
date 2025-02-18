@@ -2,6 +2,7 @@ import express from "express";
 import authController from "../controller/authController.js";
 import blogController from "../controller/blogController.js";
 import auth from "../middlewares/auth.js";
+import commentController from "../controller/commentController.js";
 const router = express.Router();
 
 //
@@ -44,6 +45,11 @@ router.delete('/blog/:id', auth, blogController.deleteBlog);
 //
 
 // Create Comment
-// Read Comments by blog ID
+router.post('/comment', auth, commentController.create);
+
+// Get Comments by blog ID
+router.get('/comment/:id', auth, commentController.getById);
+
+
 
 export default router;
