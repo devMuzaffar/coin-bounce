@@ -16,10 +16,7 @@ const Crypto = () => {
     // Cleanup
     setData([]);
     
-  }, []);
-
-  console.log(data)
-  
+  }, []); 
 
   return data.length === 0 ? <Loader text={"Crypto"} /> : (
     <div className="flex flex-col items-center">

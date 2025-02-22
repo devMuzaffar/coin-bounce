@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Footer, Navbar, Protected } from "./components";
 import { BrowserRouter, Routes, Route } from "react-router";
-import { Home, Error, Login, Signup, Crypto } from "./pages";
+import { Home, Error, Login, Signup, Crypto, Blogs, SubmitBlog } from "./pages";
 import { useSelector } from "react-redux";
 
 const App = () => {
@@ -23,12 +23,21 @@ const App = () => {
                 </StyleWrap>
               }
             />
-            <Route path="/crypto" element={<StyleWrap><Crypto /></StyleWrap>} />
+            <Route
+              path="/crypto"
+              element={
+                <StyleWrap>
+                  <Crypto />
+                </StyleWrap>
+              }
+            />
             <Route
               path="/blogs"
               element={
                 <Protected isAuth={isAuth}>
-                  <StyleWrap>WIP</StyleWrap>
+                  <StyleWrap>
+                    <Blogs />
+                  </StyleWrap>
                 </Protected>
               }
             />
@@ -36,7 +45,7 @@ const App = () => {
               path="/submit"
               element={
                 <Protected isAuth={isAuth}>
-                  <StyleWrap>WIP</StyleWrap>
+                  <StyleWrap><SubmitBlog /></StyleWrap>
                 </Protected>
               }
             />

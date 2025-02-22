@@ -8,6 +8,9 @@ const api = axios.create({
     },
 });
 
+// 
+// Authentication
+// 
 
 export const login = async (data) => {
     let response;
@@ -35,6 +38,33 @@ export const signout = async () => {
     let response;
     try {
         response = await api.post('/logout');
+    } catch (error) {
+        return error;
+    }
+    return response;
+}
+
+
+// 
+// Blogs
+// 
+
+
+export const getAllBlogs = async () => {
+    let response;
+    try {
+        response = await api.get('/blog/all');
+    } catch (error) {
+        return error;
+    }
+    return response;
+}
+
+
+export const submitaBlog = async (data) => {
+    let response;
+    try {
+        response = await api.post('/blog', data);
     } catch (error) {
         return error;
     }
