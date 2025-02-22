@@ -38,18 +38,16 @@ router.get("/blog/:id", auth, blogController.getById);
 router.put("/blog", auth, blogController.update);
 
 // Delete
-router.delete('/blog/:id', auth, blogController.deleteBlog);
+router.delete("/blog/:id", auth, blogController.deleteBlog);
 
 //
 // Comment
 //
 
 // Create Comment
-router.post('/comment', auth, commentController.create);
+router.post("/comment", auth, commentController.create);
 
 // Get Comments by blog ID
-router.get('/comment/:id', auth, commentController.getById);
-
-
+router.get("/comment/:id", auth, commentController.getById);
 
 export default router;
