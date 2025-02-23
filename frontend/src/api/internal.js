@@ -119,3 +119,41 @@ export const postComment = async (data) => {
   }
   return response;
 };
+
+//
+// Auto Token Refresh
+//
+
+// /protected-resource -> 401
+// /refresh -> Authenticated State
+// /protected-resource
+
+// This method Auto Refreshes Refresh Token when access Token is expired
+// handles errors too
+
+api.interceptors.response.use(
+  (config) => config,
+  async (error) => {
+    const originalReq = error.config;
+
+    if (
+      (error.response.status === 401 || error.response.status === 500) &&
+      originalReq &&
+      !originalReq._isRetry
+    ) {
+      originalReq._isRetry = true;
+
+      try {
+        await axios.get(`${import.meta.env.VITE_INTERNAL_API_PATH}/refresh`, {
+          withCredentials: true,
+        });
+
+        return api.request(originalReq);
+      } catch (error) {
+        return error;
+      }
+    }
+  }
+);
+
+export const autoTokenRefresh = async () => {};

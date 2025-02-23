@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
-import { Footer, Navbar, Protected } from "./components";
+import { Footer, Loader, Navbar, Protected } from "./components";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { Home, Error, Login, Signup, Crypto, SubmitBlog, Blog, BlogDetails, UpdateBlog } from "./pages";
 import { useSelector } from "react-redux";
+import useAutoLogin from "./hooks/useAutoLogin";
 
 const App = () => {
   const StyleWrap = ({ children }) => <div className="main">{children}</div>;
   const isAuth = useSelector((state) => state.user.auth);
 
-  return (
+  const loading = useAutoLogin();
+
+  return loading ? <Loader text="..." /> : (
     <div className="containerBox">
       <BrowserRouter>
         <div className="layout">
