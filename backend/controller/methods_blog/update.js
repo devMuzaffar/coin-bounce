@@ -2,7 +2,7 @@ import Joi from "joi";
 import { imagePattern, mongodbIdPattern } from "../blogController.js";
 import Blog from "../../models/blog.js";
 import fs from "fs";
-import { API_SECRET, API_KEY } from "../../config/index.js";
+import { API_SECRET, API_KEY, CLOUD_NAME } from "../../config/index.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const update = async (req, res, next) => {
