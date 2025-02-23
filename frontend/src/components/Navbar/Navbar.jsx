@@ -31,8 +31,8 @@ const Navbar = () => {
         <NavLink to="/crypto" className={navlinkStyle}>
           Cryptocurrencies
         </NavLink>
-        <NavLink to="/blogs" className={navlinkStyle}>
-          Blogs
+        <NavLink to="/blog" className={navlinkStyle}>
+          Blog
         </NavLink>
         <NavLink to="/submit" className={navlinkStyle}>
           Submit a blog

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Footer, Navbar, Protected } from "./components";
 import { BrowserRouter, Routes, Route } from "react-router";
-import { Home, Error, Login, Signup, Crypto, Blogs, SubmitBlog } from "./pages";
+import { Home, Error, Login, Signup, Crypto, SubmitBlog, Blog, BlogDetails, UpdateBlog } from "./pages";
 import { useSelector } from "react-redux";
 
 const App = () => {
@@ -32,11 +32,31 @@ const App = () => {
               }
             />
             <Route
-              path="/blogs"
+              path="/blog"
               element={
                 <Protected isAuth={isAuth}>
                   <StyleWrap>
-                    <Blogs />
+                    <Blog />
+                  </StyleWrap>
+                </Protected>
+              }
+            />
+            <Route
+              path="/blog/:id"
+              element={
+                <Protected isAuth={isAuth}>
+                  <StyleWrap>
+                    <BlogDetails />
+                  </StyleWrap>
+                </Protected>
+              }
+            />
+            <Route
+              path="/blog/update/:id"
+              element={
+                <Protected isAuth={isAuth}>
+                  <StyleWrap>
+                    <UpdateBlog />
                   </StyleWrap>
                 </Protected>
               }

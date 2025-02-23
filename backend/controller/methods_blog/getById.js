@@ -21,6 +21,9 @@ const getById = async (req, res, next) => {
 
   try {
     blog = await Blog.findOne({ _id: id }).populate("author");
+    if(blog === null){
+      throw Error();
+    }
   } catch (error) {
     return next(error);
   }
