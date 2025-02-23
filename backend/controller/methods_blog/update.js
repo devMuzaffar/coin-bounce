@@ -2,9 +2,17 @@ import Joi from "joi";
 import { imagePattern, mongodbIdPattern } from "../blogController.js";
 import Blog from "../../models/blog.js";
 import fs from "fs";
-import { BACKEND_SERVER_PATH } from "../../config/index.js";
+import { API_SECRET, API_KEY } from "../../config/index.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const update = async (req, res, next) => {
+  // Configuration
+  cloudinary.config({
+    cloud_name: CLOUD_NAME,
+    api_key: API_KEY,
+    api_secret: API_SECRET,
+  });
+
   // validate
   const updateBlogSchema = Joi.object({
     title: Joi.string().required(),
@@ -23,7 +31,7 @@ const update = async (req, res, next) => {
   const { title, content, author, blogId, photo } = req.body;
   const imagePath = `${Date.now()}-${author}.png`;
 
-  // Save new photo
+  // Retrieve Current Blog Data by ID
   let blog;
   try {
     blog = await Blog.findOne({ _id: blogId });
@@ -32,17 +40,10 @@ const update = async (req, res, next) => {
   }
 
   if (photo) {
-    let previousPhoto = blog.photoPath;
-    previousPhoto = previousPhoto.split("/").at(-1);
-
-    // delete photo
-    fs.unlinkSync(`storage/${previousPhoto}`);
-
-    // Store new photo as buffer
-    const buffer = Buffer.from(photo.replace(imagePattern, ""), "base64");
+    let response;
 
     try {
-      fs.writeFileSync(`storage/${imagePath}`, buffer);
+      response = await cloudinary.uploader.upload(photo);
     } catch (error) {
       return next(error);
     }
@@ -53,7 +54,7 @@ const update = async (req, res, next) => {
       {
         title,
         content,
-        photoPath: `${BACKEND_SERVER_PATH}/storage/${imagePath}`,
+        photoPath: response.url,
       }
     );
   } else {

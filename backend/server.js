@@ -1,6 +1,6 @@
 import express from "express";
 import connectDb from "./database/index.js";
-import { BACKEND_SERVER_PATH, PORT } from "./config/index.js";
+import { PORT } from "./config/index.js";
 import router from "./routes/index.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import cookieParser from "cookie-parser";
@@ -11,7 +11,11 @@ connectDb();
 
 app.use('/storage', express.static('storage'));
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:5173", credentials: true}));
+app.use(cors({
+  origin: (origin, callback) => callback(null, true),
+  optionsSuccessStatus: 200,
+  credentials: true,
+}))
 app.use(express.json({limit: "50mb"}));
 app.use(router);
 app.use(errorHandler);
