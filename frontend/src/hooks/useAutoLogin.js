@@ -24,7 +24,6 @@ const useAutoLogin = () => {
             dispatch(setUser(user));
         }
         } catch (error) {
-            console.log(error);
             setLoading(false);
         }
         finally {

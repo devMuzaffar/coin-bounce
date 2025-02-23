@@ -1,7 +1,17 @@
 /* eslint-disable react/prop-types */
 import { Footer, Loader, Navbar, Protected } from "./components";
 import { BrowserRouter, Routes, Route } from "react-router";
-import { Home, Error, Login, Signup, Crypto, SubmitBlog, Blog, BlogDetails, UpdateBlog } from "./pages";
+import {
+  Home,
+  Error,
+  Login,
+  Signup,
+  Crypto,
+  SubmitBlog,
+  Blog,
+  BlogDetails,
+  UpdateBlog,
+} from "./pages";
 import { useSelector } from "react-redux";
 import useAutoLogin from "./hooks/useAutoLogin";
 
@@ -11,7 +21,9 @@ const App = () => {
 
   const loading = useAutoLogin();
 
-  return loading ? <Loader text="..." /> : (
+  return loading ? (
+    <Loader text="..." />
+  ) : (
     <div className="containerBox">
       <BrowserRouter>
         <div className="layout">
@@ -68,7 +80,9 @@ const App = () => {
               path="/submit"
               element={
                 <Protected isAuth={isAuth}>
-                  <StyleWrap><SubmitBlog /></StyleWrap>
+                  <StyleWrap>
+                    <SubmitBlog />
+                  </StyleWrap>
                 </Protected>
               }
             />

@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const URL = import.meta.env.VITE_INTERNAL_API_PATH;
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_INTERNAL_API_PATH,
+  baseURL: URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -135,19 +137,17 @@ api.interceptors.response.use(
   (config) => config,
   async (error) => {
     const originalReq = error.config;
+    const status = error.response.status;
 
     if (
-      (error.response.status === 401 || error.response.status === 500) &&
+      (status === 401 || status === 500) &&
       originalReq &&
       !originalReq._isRetry
     ) {
       originalReq._isRetry = true;
 
       try {
-        await axios.get(`${import.meta.env.VITE_INTERNAL_API_PATH}/refresh`, {
-          withCredentials: true,
-        });
-
+        await axios.get(`${URL}/refresh`, { withCredentials: true });
         return api.request(originalReq);
       } catch (error) {
         return error;

@@ -28,7 +28,7 @@ const Home = () => {
     <div className="">
       {/* header */}
       <div className="text-4xl font-bold w-[inherit] text-center py-8">
-        Articles
+        Latest Articles
       </div>
 
       {/* grid */}

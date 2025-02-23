@@ -3,14 +3,13 @@ import axios from "axios";
 // 
 // from newsAPI.org - everything
 // 
-const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
-const NEWS_API_ENDPOINT = `https://newsapi.org/v2/everything?q=business AND blockchain&sortBy=publishedAt&language=en&pageSize=15&apiKey=${NEWS_API_KEY}`;
+const NEWS_API_ENDPOINT = "https://saurav.tech/NewsAPI/top-headlines/category/business/us.json";
 
 export const getNews = async () => {
     let response;
     try {
         response = await axios.get(NEWS_API_ENDPOINT);
-        response = response.data.articles;
+        response = response.data.articles.slice(0, 15);
     } catch (error) {
         return error;
     }
