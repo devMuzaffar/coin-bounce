@@ -81,10 +81,14 @@ const register = async (req, res, next) => {
     res.cookie("accessToken", accessToken, {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       httpOnly: true,
+      sameSite: "None",
+      secure: true,
     });
     res.cookie("refreshToken", refreshToken, {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       httpOnly: true,
+      sameSite: "None",
+      secure: true,
     });
   
     // 6. response send

@@ -72,11 +72,15 @@ const login = async (req, res, next) => {
     res.cookie("accessToken", accessToken, {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
+      sameSite: "None",
+      secure: true,
     });
   
     res.cookie("refreshToken", refreshToken, {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
+      sameSite: "None",
+      secure: true,
     });
   
     const userDto = new UserDTO(user);
